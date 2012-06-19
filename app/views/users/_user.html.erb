@@ -1,0 +1,6 @@
+<div>
+  <%= image_tag user.avatar_url %>
+  <div>From: <%= user.city %> <%= user.country %></div>
+  <div>Tracks: <%= user.track_count %></div>
+  <div><%= link_to 'View on soundcloud', user.permalink_url %></div>
+</div>

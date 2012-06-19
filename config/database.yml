@@ -1,0 +1,16 @@
+development:
+  adapter: mysql
+  database: listenpledge_dev
+  username: root
+   
+# test:
+#   adapter: sqlite3
+#   database: db/test.sqlite3
+#   pool: 5
+#   timeout: 5000
+
+production:
+  adapter: mysql
+  database: listenpledge_prod
+  username: listenpledge
+  password: s0manylisten3rs
