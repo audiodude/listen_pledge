@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :soundcloud_id, :permalink, :permalink_url, :avatar_url, :city, :country, :track_count,
+                  :username, :website, :token
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :rememberable, :trackable, :omniauthable, :omniauth_providers => [:soundcloud]
