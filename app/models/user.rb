@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
     extra = access_token.extra.raw_info
     logger.debug access_token.inspect
     logger.debug access_token.extra
-    logger.debug access_token.extra.id
-    if user = User.where(:soundcloud_id => access_token.extra.id).first
+    logger.debug access_token.extra['id']
+    if user = User.where(:soundcloud_id => access_token.extra['id']).first
       user
     else
       User.create!(
