@@ -7,7 +7,7 @@ require "bundler/capistrano"
 load 'deploy/assets'
 
 set :application, "Listen Pledge"
-set :repository,  "git@github.com:audiodude/Listen-Pledge.git"
+set :repository,  "git@github.com:audiodude/listen_pledge.git"
 
 set :scm, :git
 set :branch, :master

@@ -1,15 +1,9 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :rememberable, :trackable, :omniauthable
+  devise :rememberable, :trackable, :omniauthable, :omniauth_providers => [:soundcloud]
   
   def self.find_for_soundcloud_oauth(access_token, signed_in_resource=nil)
     extra = access_token.extra.raw_info
