@@ -8,8 +8,7 @@ class User < ActiveRecord::Base
   def self.find_for_soundcloud_oauth(access_token, signed_in_resource=nil)
     extra = access_token.extra.raw_info
     logger.debug access_token.inspect
-    logger.debug access_token.credentials.inspect
-    logger.debug access_token.credentials.token.inspect
+    logger.debug accest_token.extra
     if user = User.where(:soundcloud_id => access_token.extra.id).first
       user
     else
