@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     if user = User.where(:soundcloud_id => extra.id).first
       user
     else
-      User.create(
+      User.new(
         :soundcloud_id => extra.id,
         :permalink => extra.permalink,
         :permalink_url => extra.permalink_url,

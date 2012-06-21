@@ -1,0 +1,13 @@
+<div>
+  Okay we've got you as:
+  <%= render :partial => 'user', :locals => { :user => @user } %>
+  If that's not right, you might try to <%= link_to "re-authenticate with soundcloud", user_omniauth_authorize_path(:soundcloud) %>.
+</div>
+<%= form_for :user do |f| %>
+<div>
+  If that looks right, then we just need your email address and you'll be good to go.<br>
+  <b>Email:</b> <%= f.text_field :email %>
+  We'll use your email to contact you about activity on the site, and we promise never to sell your information to any third party<br/>
+  <input type="submit"/>
+</div>
+<% end %>
