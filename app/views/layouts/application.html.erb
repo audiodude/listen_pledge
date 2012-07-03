@@ -10,13 +10,15 @@
 
 <div class="container">
   <% if notice || alert %>
-    <div class="span12">
-      <% if notice %>
-        <p class="notice"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="alert"><%= alert %></p>
-      <% end %>
+    <div class="row">
+      <div class="span12">
+        <% if notice %>
+          <p class="notice"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert"><%= alert %></p>
+        <% end %>
+      </div>
     </div>
   <% end %>
 

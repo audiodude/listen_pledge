@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def soundcloud
-    @user = User.find_for_soundcloud_oauth(request.env["omniauth.auth"], current_user)
+    @user = User.find_for_soundcloud_oauth(request.env["omniauth.auth"])
 
     if @user.persisted?
       flash[:notice] = "You have been signed in from Soundcloud"

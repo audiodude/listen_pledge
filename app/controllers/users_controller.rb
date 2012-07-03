@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def submit_registration
     if ! session['devise.soundcloud_data']
       redirect_to root_path
+      return
     end
     @user = User.find_for_soundcloud_oauth(session['devise.soundcloud_data'])
     @user.email = params['user']['email']
@@ -18,7 +19,6 @@ class UsersController < ApplicationController
       sign_in @user
       redirect_to intro_path
     else
-      flash['errors'] = 'You must provide an email address in order to register'
       render :action => :register
     end
   end

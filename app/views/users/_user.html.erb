@@ -1,9 +1,10 @@
 <div class="user">
-  <div class="username"><%= user.username %></div>
   <%= image_tag user.avatar_url, :class => 'avatar' %>
-  <% if user.city || user.country %>
-    <div class="from">From: <%= user.city %> <%= user.country %></div>
-  <% end %>
-  <div class="tracks">Tracks: <%= user.track_count %></div>
-  <div class="see_also"><%= link_to 'View on soundcloud', user.permalink_url %></div>
+  <div class="details">
+    <div class="username"><%= link_to user.username, user.permalink_url %></div>
+    <% if user.city || user.country %>
+      <div class="from"><%= user.city %> <%= user.country %></div>
+    <% end %>
+    <div class="tracks">Tracks: <%= user.track_count %></div>
+  </div>
 </div>

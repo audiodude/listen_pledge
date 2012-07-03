@@ -6,3 +6,29 @@
  *= require_tree . 
  *= require twitter/bootstrap
 */
+
+.row.top {
+    margin-top: 40px
+}
+
+.user {
+    width: 280px;
+    height: 120px;
+    margin: auto;
+    position: relative;
+}
+
+.user .details {
+    width: 160px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+
+.user .avatar {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    top: 10px;
+}

@@ -1,6 +1,10 @@
-<% if user_signed_in? %>
-  <%= render :partial => 'users/user', :locals => {:user => current_user}%>
-  <%= link_to 'Log out', destroy_user_session_path %>
-<% else %>
-  <%= link_to "Sign in with Soundcloud", user_omniauth_authorize_path(:soundcloud) %>
-<% end %>
+<div class="row">
+  <div class="span12">
+      <% if user_signed_in? %>
+	<%= render :partial => 'users/user', :locals => {:user => current_user}%>
+	<%= link_to 'Log out', destroy_user_session_path %>
+      <% else %>
+	<%= link_to "Sign in with Soundcloud", user_omniauth_authorize_path(:soundcloud) %>
+      <% end %>
+  </div>
+</div>

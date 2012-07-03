@@ -27,4 +27,6 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'mysql2'
 
+gem 'validates_email_format_of'
+
 gem 'omniauth-soundcloud', '~> 1.0.0'

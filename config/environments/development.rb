@@ -36,4 +36,7 @@ Listenpledge::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Don't put field_with_errors around fields
+  config.action_view.field_error_proc = proc {|html, instance| html }
 end

@@ -5,8 +5,10 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :rememberable, :trackable, :omniauthable, :omniauth_providers => [:soundcloud]
+
+  validates :email, :email_format => {:message => 'does not appear to be a valid email address.'}
   
-  def self.find_for_soundcloud_oauth(access_token, signed_in_resource=nil)
+  def self.find_for_soundcloud_oauth(access_token)
     extra = access_token.extra.raw_info
     if user = User.where(:soundcloud_id => extra.id).first
       user

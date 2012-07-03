@@ -1,13 +1,25 @@
-<div>
-  Okay we've got you as:
-  <%= render :partial => 'user', :locals => { :user => @user } %>
-  If that's not right, you might try to <%= link_to "re-authenticate with soundcloud", user_omniauth_authorize_path(:soundcloud) %>.
+<div class="row top">
+  <div class="span4">
+    Okay we've got you as:
+    <%= render :partial => 'user', :locals => { :user => @user } %>
+    <%= link_to "Not you?", user_omniauth_authorize_path(:soundcloud) %>
+  </div>
+  <div class="span8">
+    <%= form_for :user, :html => {:class => 'well'} do |f| %>
+      <p>If that looks right, then we just need your email address and you'll be good to go.</p>
+      <div>
+	<% if @user.errors %>
+	  <div class="alert alert-error">There were errors with your submission.</div>
+	<% end %>
+	<div class="control-group<%= ' error' if @user.errors %>">
+	  <label class="control-label" for="user_email">Email:</label>
+	  <div class="controls">
+	    <%= f.text_field :email %>
+	    <span class="help-inline"><%=raw @user.errors.full_messages.join('<br/>') %></span>
+	  </div>
+      </div>
+      <p><em>We'll use your email to contact you about activity on the site, and we promise never to sell your information to any third party.</em></p>
+      <input type="submit"/>
+    <% end %>
+  </div>
 </div>
-<%= form_for :user do |f| %>
-<div>
-  If that looks right, then we just need your email address and you'll be good to go.<br>
-  <b>Email:</b> <%= f.text_field :email %>
-  We'll use your email to contact you about activity on the site, and we promise never to sell your information to any third party<br/>
-  <input type="submit"/>
-</div>
-<% end %>
