@@ -3,6 +3,7 @@ class SongsController < ApplicationController
 
   def start_import
     @pairing = Pairing.for_user(current_user)
+    @eligible_songs = Song.where(:eligible => true, :user_id => current_user.id)
   end
 
   def import

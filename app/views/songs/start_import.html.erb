@@ -24,6 +24,12 @@
   </div>
 </div>
 
+<% elsif !@eligible_songs.empty? %>
+<div class="row">
+  <div class="span12 centered">
+    You have already selected a song that is <%= link_to 'waiting to be paired', pairing_users_path %>.
+  </div>
+</div>
 
 <% else %>
 <div id="results" class="row">
