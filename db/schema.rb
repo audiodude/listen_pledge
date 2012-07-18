@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120622144915) do
+ActiveRecord::Schema.define(:version => 20120703195620) do
+
+  create_table "songs", :force => true do |t|
+    t.integer "user_id"
+    t.integer "soundcloud_id"
+    t.string  "title"
+    t.text    "description"
+    t.string  "genre"
+    t.integer "duration"
+    t.string  "permalink"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"

@@ -7,6 +7,10 @@
  *= require twitter/bootstrap
 */
 
+.row {
+    margin-top: 20px;
+}
+
 .row.top {
     margin-top: 40px
 }
@@ -31,4 +35,56 @@
     position: absolute;
     left: 0;
     top: 10px;
+}
+
+.bigheader {
+    background-color: #3399FF;
+    color: #FFF;
+    font-size: 32px;
+    padding: 1.5em 10px 0 10px;
+    height: 1em;
+}
+
+.span12.centered {
+    text-align: center;
+}
+
+.chk_cont {
+    height: 86px;
+    padding-top: 80px
+}
+
+.row.bottom {
+    margin-bottom: 20px;
+}
+
+.pager_cont {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.pager_prev, .pager_next {
+    font-size: 24px;
+    position: absolute;
+}
+
+.pager_prev {
+    left: 0;
+}
+
+.pager_next {
+    right: 90px;
+}
+
+#btn_do_import_some {
+    width: 200px;
+    height: 80px;
+    font-size: 20px;
+    font-width: bold;
+}
+
+.import_results {
+    text-align: center;
+    font-size: 18px;
 }

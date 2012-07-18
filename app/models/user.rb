@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :songs
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :soundcloud_id, :permalink, :permalink_url, :avatar_url, :city, :country, :track_count,
                   :username, :website, :token
