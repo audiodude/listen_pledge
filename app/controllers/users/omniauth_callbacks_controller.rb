@@ -6,7 +6,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user.token = request.env["omniauth.auth"].credentials.token
       @user.save!
       flash[:notice] = "You have been signed in from Soundcloud"
-      sign_in_and_redirect @user, :event => :authentication
+      sign_in @user
+      redirect_to import_songs_path
     else
       @user.save!
       sign_in @user
