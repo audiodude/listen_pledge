@@ -17,15 +17,15 @@
   </div>
 </div>
 
+<% if !@pairings.empty? %>
 <div class="row">
-</div>
-
-<div id="options" class="row">
   <div class="span12 centered">
-    <div><button type="button" id="btn_import_some">Fetch tracks from Soundcloud for import</button></div>
+    You already have a song that has been paired. <%= link_to 'Go check it out!', pairings_users_path %>
   </div>
 </div>
 
+
+<% else %>
 <div id="results" class="row">
   <div id="spinner" class="span12 centered" style="display: none;">
     <%= image_tag 'loader.gif' %>
@@ -88,7 +88,6 @@
    }
 
    $(document).ready(function() {
-     $('#options').hide();
      $('#spinner').show();
      $.getJSON('http://api.soundcloud.com/users/' + user_soundcloud_id, {
        client_id: 'c001d040ca07ee60ab42fe4be63a08be'
@@ -138,3 +137,4 @@
      });
    });
 </script>
+<% end %>

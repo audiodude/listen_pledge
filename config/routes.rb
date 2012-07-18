@@ -9,7 +9,7 @@ Listenpledge::Application.routes.draw do
   end
 
   resources :users do
-    member do
+    collection do
       get 'pairings'
     end
   end
