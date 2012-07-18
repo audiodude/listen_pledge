@@ -5,10 +5,19 @@
 </div>
 
 <div class="row">
-  <div class="span12 centered">
+  <div class="span4">
+    Okay we've got you as:
+    <%= render :partial => 'users/user', :locals => { :user => current_user } %>
+    <%= link_to "Not you?", user_omniauth_authorize_path(:soundcloud) %>
+  </div>
+
+  <div class="span8">
     <p>To use the Listen Pledge service, you must first select one of your Soundcloud tracks. This is easy, since you connected using Soundcloud when you signed up.</p>
     <p>The track you select will be paired up with a random track from another user, and then the magic happens!</p>
   </div>
+</div>
+
+<div class="row">
 </div>
 
 <div id="options" class="row">
@@ -36,6 +45,7 @@
        limit: limit
      }, function(json) {
        $('#spinner').hide();
+       $('.row.bottom').show();
        var panel_id = 'panel-'+offset;
        $('#results').append('<div id="'+panel_id+'" class="panel"></div>')
        $(json).each(function(i, track) {
@@ -67,6 +77,7 @@
                next.show();
              } else {
                $('#spinner').show();
+	       $('.row.bottom').hide();
                get_next_batch((offset+limit), limit, total);
              }
            });
@@ -76,14 +87,14 @@
      });
    }
 
-   $('#btn_import_some').click(function() {
+   $(document).ready(function() {
      $('#options').hide();
      $('#spinner').show();
      $.getJSON('http://api.soundcloud.com/users/' + user_soundcloud_id, {
        client_id: 'c001d040ca07ee60ab42fe4be63a08be'
      }, function(json) {
        get_next_batch(0, 6, json.track_count, function() {
-         $('#results').after('<div class="row bottom"><div class="span12 centered"><button id="btn_do_import_some">Import Selected</button></div></div>');
+         $('#results').after('<div class="row bottom"><div class="span12 centered"><button id="btn_do_import_some">Use this song</button></div></div>');
 	 $('#btn_do_import_some').click(function() {
 	   var data = [];
 	   $('.chk_import:checked').each(function(i, chk) {
@@ -107,7 +118,19 @@
                    repeat_str = json.repeat + ' were skipped because they&apos;ve already been imported.';
                  }
                }
-               $('#results').after('<div class="import_results"><p>We processed ' + total + ' songs. ' + json.imported + ' were imported. '+repeat_str+'</p><p>Now that you&apos;ve imported a song, head over to <%= link_to 'your pairings page', pairings_user_path(current_user) %> to see if it&apos;s been paired yet.</p></div>');
+	       var import_str = '';
+               if(json.imported == 1) {
+                 import_str = '1 was imported. ';
+               } else {
+                 import_str = json.imported + ' were imported. ';
+               }
+               var process_str = '';
+               if(total == 1) {
+                 process_str = 'We processed 1 song. ';
+               } else {
+                 process_str = 'We processed ' + total + ' songs. ';
+               }
+               $('#results').after('<div class="import_results"><p>'+process_str+import_str+repeat_str+'</p><p>Now that you&apos;ve imported a song, head over to <%= link_to 'your pairings page', pairings_user_path(current_user) %> to see if it&apos;s been paired yet.</p></div>');
              }
 	   });
 	 });

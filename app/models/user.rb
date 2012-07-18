@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :rememberable, :trackable, :omniauthable, :omniauth_providers => [:soundcloud]
 
-  validates :email, :email_format => {:message => 'does not appear to be a valid email address.'}
+  # validates :email, :email_format => {:message => 'does not appear to be a valid email address.'}
   
   def self.find_for_soundcloud_oauth(access_token)
     extra = access_token.extra.raw_info

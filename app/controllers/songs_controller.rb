@@ -21,7 +21,20 @@ class SongsController < ApplicationController
       else
         num_repeat += 1
       end
-      song.eligible = true
+
+      other_song = Song.where('user_id != ? AND eligible = 1', current_user.id).limit(1)[0]
+      if other_song
+        pairing = Pairing.new
+        pairing.from_song = other_song
+        pairing.to_song = song
+        other_song.eligible = false
+        song.eligible = false
+        pairing.save!
+        other_song.save!
+      else
+        song.eligible = true
+      end
+
       song.save!
     end
     render :json => {"imported" => num_imported, "repeat" => num_repeat}
