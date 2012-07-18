@@ -10,7 +10,7 @@ Listenpledge::Application.routes.draw do
 
   resources :users do
     collection do
-      get 'pairings'
+      get 'pairing'
     end
   end
 
@@ -18,6 +18,12 @@ Listenpledge::Application.routes.draw do
     collection do
       get 'import' => 'songs#start_import', :as => 'start_import'
       post 'import'
+    end
+  end
+
+  resources :pairings, :only => [:comment] do
+    member do
+      post 'comment'
     end
   end
 

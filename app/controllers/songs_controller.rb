@@ -2,7 +2,7 @@ class SongsController < ApplicationController
   before_filter :authenticate_user!
 
   def start_import
-    @pairings = Pairing.for_user(current_user)
+    @pairing = Pairing.for_user(current_user)
   end
 
   def import

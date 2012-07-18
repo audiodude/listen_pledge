@@ -3,7 +3,8 @@ class Pairing < ActiveRecord::Base
   belongs_to :from_song, :class_name => Song, :foreign_key => 'from_song_id'
 
   def self.for_user(user)
-    Pairing.joins(:to_song, :from_song).where('pairings.active = 1 AND (songs.user_id = ? OR from_songs_pairings.user_id = ?)', user.id, user.id)
+    Pairing.joins(:to_song, :from_song).where('pairings.active = 1 AND ((songs.user_id = ? AND pairings.to_listened IS NULL) OR (from_songs_pairings.user_id = ? AND pairings.from_listened IS NULL))',
+                                              user.id, user.id).first
   end
 
   def user_song(user)

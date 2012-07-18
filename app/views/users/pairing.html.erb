@@ -1,0 +1,73 @@
+<div class="row top">
+  <div class="span12 bigheader">
+    Your Song Pairing
+  </div>
+</div>
+
+<% unless @pairing %>
+  <div class="row">
+    <div class="span12 centered">
+      <% if @eligible_songs.empty? %>
+        You don't have an active pairing at the moment. Go to the <%= link_to 'import songs page', import_songs_path %> and import a song so we can pair it up.
+      <% else %>
+        <p>Your song hasn't been paired with anyone else&apos;s yet. This is likely to happen to every other person, if you think about it.</p>
+	<p>Enter your email and we'll send you a message when your song gets paired</p>
+	<div><input id="email"/></div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <%
+     user_song, other_song = @pairing.user_song(current_user)
+  %>
+  <div class="row">
+    <div class="span12 centered">
+      <p>Alright! Your song <b><%= user_song.title %></b> has been paired up with <b><%= other_song.title %></b> by the Soundcloud user <i><%= other_song.user.username %></i>.</p>
+      <p>Now all you have to do is listen to the track and leave a comment. The other user, <i><%= other_song.user.username %></i> will do the same, and your pairing is complete!</p>
+    </div>
+    <div class="span12">
+      <%= raw soundcloud_frame(other_song.soundcloud_id.to_s) %>
+    </div>
+    <div id="comment_area" class="span12" style="margin-top: 20px; position: relative">
+      <textarea id="comment" style="margin: 0px 0px 9px; width: 930px; height: 120px;" placeholder="Type your comment here..."></textarea>
+      <div class="comment_input">
+	<input id="chk_comment" type="checkbox"> I promise that I have listened to the song <button id="btn_comment" type="button" style="margin-left: 10px">Add comment</button>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+
+  $('#btn_comment').click(function() {
+    if(! $('#comment').val().length) {
+      alert('You must enter a comment to continue.');
+      return false;
+    }
+
+    if(! $('#chk_comment:checked').length) {
+      alert('You must promise that you\'ve listened to the song');
+      return false;
+    }
+  
+    $.ajax(<%= raw url_for(comment_pairing_path(@pairing)).to_json %>, {
+      data: {
+        user_id: <%= raw current_user.id.to_json %>,
+        comment: $('#comment').val()
+      },
+      type: 'POST',
+    });
+
+    $.ajax('https://api.soundcloud.com/tracks/<%= raw other_song.soundcloud_id %>/comments.json', {
+      data: {
+        oauth_token: <%= raw current_user.token.to_json %>,
+        comment: {'body': $('#comment').val()}
+      },
+      type: 'POST',
+      success: function(json) {
+        $('#comment_area').replaceWith('<div class="span12 centered"><p>Success! You have left your song feedback. This completes your half of the pairing. Keep an eye out for feedback from the person you were paired with.</p><p>You can now <%= link_to 'import another song', start_import_songs_path %> (or even the same one again) and try for another pairing</p><p>Thanks for using Listen Pledge!</p></div>');
+      }
+    });
+  });
+
+</script>
+<% end %>

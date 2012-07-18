@@ -17,10 +17,10 @@
   </div>
 </div>
 
-<% if !@pairings.empty? %>
+<% if @pairing %>
 <div class="row">
   <div class="span12 centered">
-    You already have a song that has been paired. <%= link_to 'Go check it out!', pairings_users_path %>
+    You already have a song that has been paired. <%= link_to 'Go check it out!', pairing_users_path %>
   </div>
 </div>
 
@@ -129,7 +129,7 @@
                } else {
                  process_str = 'We processed ' + total + ' songs. ';
                }
-               $('#results').after('<div class="import_results"><p>'+process_str+import_str+repeat_str+'</p><p>Now that you&apos;ve imported a song, head over to <%= link_to 'your pairings page', pairings_user_path(current_user) %> to see if it&apos;s been paired yet.</p></div>');
+               $('#results').after('<div class="import_results"><p>'+process_str+import_str+repeat_str+'</p><p>Now that you&apos;ve imported a song, head over to <%= link_to 'your pairings page', pairing_users_path %> to see if it&apos;s been paired yet.</p></div>');
              }
 	   });
 	 });
