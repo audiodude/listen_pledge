@@ -6,21 +6,14 @@
 
 <div class="row">
   <div class="span12 centered">
-    <p>To use the Listen Pledge service, you must first import tracks from Soundcloud. This is easy, since you connected using Soundcloud when you signed up.</p>
+    <p>To use the Listen Pledge service, you must first select one of your Soundcloud tracks. This is easy, since you connected using Soundcloud when you signed up.</p>
+    <p>The track you select will be paired up with a random track from another user, and then the magic happens!</p>
   </div>
 </div>
 
 <div id="options" class="row">
   <div class="span12 centered">
     <div><button type="button" id="btn_import_some">Fetch tracks from Soundcloud for import</button></div>
-  </div>
-  <div class="span12 centered">
-    <p>-OR-</p>
-    <div><button type="button" id="btn_import_all">Import ALL tracks from Soundcloud</button></div>
-  </div>
-  <div class="span12 centered">
-    <p>-OR-</p>
-    <p>Import a single Soundcloud track by pasting its URL: <input id="single_track"/><button type="button" id="btn_import_single" style="margin-left: 10px">Import</button></p>
   </div>
 </div>
 
@@ -51,7 +44,7 @@
              '<div class="span10" style="margin-top: 10px">' +
              '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F' +
              track.id + '&amp;show_artwork=false&amp;color=00abef"></iframe>' +
-             '</div><div class="span2 chk_cont"><input data-track-id="'+track.id+'" class="chk_import" type="checkbox"></div>'
+             '</div><div class="span2 chk_cont"><input data-track-id="'+track.id+'" class="chk_import" name="import" type="radio"></div>'
          );
        });
        if((offset+limit) <= total || offset != 0) {
@@ -101,16 +94,20 @@
            $('.row.bottom').html('');
            $('#spinner').show();
 	   $.ajax(<%= raw url_for(import_songs_path).to_json %>, {
-	     data: {'tracks': data},
+	     data: {'tracks': data, 'user_id': user_id},
 	     type: 'POST',
              success: function(json) {
                $('#spinner').hide();
 	       var total = json.imported + json.repeat;
                var repeat_str = '';
                if(json.repeat) {
-                 repeat_str = json.repeat + ' were skipped because they&apos;ve already been imported.';
+                 if(json.repeat == 1) {
+                   repeat_str = json.repeat + ' was skipped because it&apos;s already been imported.';
+                 } else {
+                   repeat_str = json.repeat + ' were skipped because they&apos;ve already been imported.';
+                 }
                }
-               $('#results').after('<div class="import_results"><p>We processed ' + total + ' songs. ' + json.imported + ' were imported. '+repeat_str+'</p>Now that you&apos;ve imported songs, you can <%= link_to 'choose a song', start_choose_songs_path %> to use in pairings.</div>');
+               $('#results').after('<div class="import_results"><p>We processed ' + total + ' songs. ' + json.imported + ' were imported. '+repeat_str+'</p><p>Now that you&apos;ve imported a song, head over to <%= link_to 'your pairings page', pairings_user_path(current_user) %> to see if it&apos;s been paired yet.</p></div>');
              }
 	   });
 	 });

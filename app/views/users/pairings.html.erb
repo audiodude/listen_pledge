@@ -1,0 +1,63 @@
+<div class="row top">
+  <div class="span12 bigheader">
+    Your Song Pairing
+  </div>
+</div>
+
+<% if @pairings.empty? %>
+  <div class="row">
+    <div class="span12 centered">
+      <% if @eligible_songs.empty? %>
+        You haven&apos;t imported a song for pairing yet. Go to the <%= link_to 'import songs page', import_songs_path %> and import one now!
+      <% else %>
+        Your songs haven&apos;t been paired with anyone else&apos;s yet. This is likely because<br/>there aren&apos;t enough users in the system. Try back later.
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <%
+     current_pairing = @pairings[0]
+     user_song = nil
+     other_song = nil
+     if current_pairing.to_song.user == current_user
+       user_song = current_pairing.to_song
+       other_song = current_pairing.from_song
+     else
+       user_song = current_pairing.from_song
+       other_song = current_pairing.to_song
+     end
+  %>
+  <div class="row">
+    <div class="span12 centered">
+      <p>Alright! Your song <b><%= user_song.title %></b> has been paired up with <b><%= other_song.title %></b> by the Soundcloud user <i><%= other_song.user.username %></i>.</p>
+      <p>Now all you have to do is listen to the track and leave a comment. The other user, <i><%= other_song.user.username %></i> will do the same, and your pairing is complete!</p>
+    </div>
+    <div class="span12">
+      <%= raw soundcloud_frame(other_song.soundcloud_id.to_s) %>
+    </div>
+    <div class="span12" style="margin-top: 20px; position: relative">
+      <textarea id="comment" style="margin: 0px 0px 9px; width: 930px; height: 120px;" placeholder="Type your comment here..."></textarea>
+      <div class="comment_input">
+	<input id="chk_comment" type="checkbox"> I promise that I have listened to the song <button id="btn_comment" type="button" style="margin-left: 10px">Add comment</button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+
+  $('#btn_comment').click(function() {
+    if(! $('#comment').val().length) {
+      alert('You must enter a comment to continue.');
+      return false;
+    }
+
+    if(! $('#chk_comment:checked').length) {
+      alert('You must promise that you\'ve listened to the song');
+      return false;
+    }
+  
+    
+  });
+
+</script>

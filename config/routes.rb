@@ -8,12 +8,16 @@ Listenpledge::Application.routes.draw do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
+  resources :users do
+    member do
+      get 'pairings'
+    end
+  end
+
   resources :songs do
     collection do
       get 'import' => 'songs#start_import', :as => 'start_import'
       post 'import'
-      get 'choose' => 'songs#start_choose', :as => 'start_choose'
-      post 'choose'
     end
   end
 
