@@ -4,6 +4,7 @@ class UserMailer < ActionMailer::Base
   def pairing_ready_email(user, pairing)
     @user = user
     @pairing = pairing
+    @user_song, @other_song = pairing.user_song(user)
     mail(:to => user.email, :subject => "You have been paired on Listen Pledge")
   end
 

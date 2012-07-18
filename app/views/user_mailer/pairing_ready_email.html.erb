@@ -4,9 +4,9 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <p>The song that you imported from Soundcloud to the Listen Pledge website has been paired with another user&apos;s song!</p>
-    <p><%= link_to 'Visit the site now', pairings_user_url(@user) %> to see the song, listen to it, and provide feedback.</p>
+    <p>Your song <b><%= @user_song.title %></b> has been paired with another user&apos;s song on Listen Pledge!</p>
+    <p><%= link_to 'Visit the site now', pairings_user_url(@user) %> to see the paired song, listen to it, and provide feedback.</p>
     <p>Thanks,<br/>
-    <p>The Listen Pledge team</p>
+    The Listen Pledge team</p>
   </body>
 </html>

@@ -17,15 +17,7 @@
 <% else %>
   <%
      current_pairing = @pairings[0]
-     user_song = nil
-     other_song = nil
-     if current_pairing.to_song.user == current_user
-       user_song = current_pairing.to_song
-       other_song = current_pairing.from_song
-     else
-       user_song = current_pairing.from_song
-       other_song = current_pairing.to_song
-     end
+     user_song, other_song = current_pairing.user_song(current_user)
   %>
   <div class="row">
     <div class="span12 centered">
