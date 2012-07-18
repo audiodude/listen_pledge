@@ -12,6 +12,9 @@ Listenpledge::Application.routes.draw do
     collection do
       get 'pairing'
     end
+    member do
+      post 'set_email'
+    end
   end
 
   resources :songs do

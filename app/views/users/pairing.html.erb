@@ -11,11 +11,30 @@
         You don't have an active pairing at the moment. Go to the <%= link_to 'import songs page', import_songs_path %> and import a song so we can pair it up.
       <% else %>
         <p>Your song hasn't been paired with anyone else&apos;s yet. This is likely to happen to every other person, if you think about it.</p>
-	<p>Enter your email and we'll send you a message when your song gets paired</p>
-	<div><input id="email"/></div>
+	<% if current_user.email.blank? %>
+	  <div id="enter_email">
+	    <p>Enter your email and we'll send you a message when your song gets paired</p>
+	    <div><input id="email"/><button id="submit_email" style="margin-left: 10px">Let me know</button></div>
+	  </div>
+        <% else %>
+	  <p>We've got your email on file, so we'll send you an email when your pairing is complete. Until then, you can always try refreshing this page.</p>
+	<% end %>
       <% end %>
     </div>
   </div>
+
+  <script type="text/javascript">
+    $('#submit_email').click(function() {
+      if(! $('#email').val().length) { return; }
+      $.ajax(<%= raw url_for(set_email_user_path(current_user)).to_json %>, {
+        data: {email: $('#email').val()},
+        type: 'POST',
+        success: function() {
+          $('#enter_email').replaceWith('<p>Okay, we&apos;ve got your email address, and we&apos;ll let you know when your song gets paired. You can also simply refresh this page.</p>')
+        }
+      });
+    });
+  </script>
 <% else %>
   <%
      user_song, other_song = @pairing.user_song(current_user)

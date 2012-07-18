@@ -6,4 +6,13 @@ class UsersController < ApplicationController
     @eligible_songs = current_user.songs.where(:eligible => true)
   end
 
+  def set_email
+    user = User.find(params[:id])
+    if user
+      user.email = params[:email]
+      user.save!
+    end
+    render :nothing => true
+  end
+
 end

@@ -31,6 +31,9 @@ class SongsController < ApplicationController
         song.eligible = false
         pairing.save!
         other_song.save!
+        if other_song.user.email
+          UserMailer.pairing_ready_email(other_song.user, pairing).deliver
+        end
       else
         song.eligible = true
       end
