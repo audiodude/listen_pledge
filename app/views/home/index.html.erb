@@ -1,10 +1,24 @@
-<div class="row">
-  <div class="span12">
-      <% if user_signed_in? %>
-	<%= render :partial => 'users/user', :locals => {:user => current_user}%>
-	<%= link_to 'Log out', destroy_user_session_path %>
-      <% else %>
-	<%= link_to "Sign in with Soundcloud", user_omniauth_authorize_path(:soundcloud) %>
-      <% end %>
+<div class="row home_header">
+  <div class="span6 listen_pledge">
+    Listen Pledge
+  </div>
+  <div class="span6 features">
+    <ul class="unstyled">
+      <li>Share your Soundcloud tracks with other users</li>
+      <li>Listen to each other's songs and provide feedback</li>
+      <li>Simple and easy to use</li>
+    </ul>
+  </div>
+  <div class="span12 centered" style="margin-top: 40px">
+    <%= link_to image_tag('btn-connect-sc-l.png'), user_omniauth_authorize_path(:soundcloud) %>
   </div>
 </div>
+
+<% if user_signed_in? %>
+  <div class="row">
+    <div class="span4 centered">
+      <%= render :partial => 'users/user', :locals => {:user => current_user}%>
+      <%= link_to 'Log out', destroy_user_session_path %>
+    </div>
+  </div>
+<% end %>
