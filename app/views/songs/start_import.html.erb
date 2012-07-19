@@ -106,6 +106,10 @@
 	     console.log($(chk).attr('data-track-id'));
 	     data.push(tracks[$(chk).attr('data-track-id')]);
 	   });
+	   if(! data.length) {
+             alert('You must select a song, use the radio buttons.');
+             return false;
+           }
            $('.panel').hide();
            $('.row.bottom').html('');
            $('#spinner').show();
