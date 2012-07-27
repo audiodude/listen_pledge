@@ -21,5 +21,12 @@
       <%= render :partial => 'users/user', :locals => {:user => current_user}%>
       <%= link_to 'Log out', destroy_user_session_path %>
     </div>
+    <div class="span4">
+      <% if @pairing %>
+        <%= link_to 'View your current song pairing', pairing_users_path %>
+      <% else %>
+        <%= link_to 'Import a song now', import_songs_path %>
+      <% end %>
+    </div>
   </div>
 <% end %>
