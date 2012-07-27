@@ -22,7 +22,7 @@
       <%= link_to 'Log out', destroy_user_session_path %>
     </div>
     <div class="span4">
-      <% if @pairing %>
+      <% if @pairing || !@eligible_songs.empty? %>
         <%= link_to 'View your current song pairing', pairing_users_path %>
       <% else %>
         <%= link_to 'Import a song now', import_songs_path %>
