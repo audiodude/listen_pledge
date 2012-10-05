@@ -6,7 +6,7 @@ class PairingsController < ApplicationController
       render :nothing => true, :status => 404
     end
 
-    if @pairing.to_song.user.id == params[:user_id]
+    if @pairing.to_song.user.id.to_s == params[:user_id]
       @pairing.to_listened = Time.now
       @pairing.to_comment = params[:comment]
       if @pairing.from_listened
