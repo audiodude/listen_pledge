@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718201123) do
+ActiveRecord::Schema.define(:version => 20130208074358) do
 
   create_table "pairings", :force => true do |t|
     t.integer  "from_song_id"
@@ -24,16 +24,18 @@ ActiveRecord::Schema.define(:version => 20120718201123) do
   end
 
   create_table "songs", :force => true do |t|
-    t.integer "user_id"
-    t.integer "soundcloud_id"
-    t.string  "title"
-    t.text    "description"
-    t.string  "genre"
-    t.integer "duration"
-    t.string  "permalink"
-    t.boolean "eligible",           :default => false
-    t.integer "soundcloud_user_id"
-    t.boolean "commentable"
+    t.integer  "user_id"
+    t.integer  "soundcloud_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "genre"
+    t.integer  "duration"
+    t.string   "permalink"
+    t.boolean  "eligible",           :default => false
+    t.integer  "soundcloud_user_id"
+    t.boolean  "commentable"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

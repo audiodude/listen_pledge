@@ -18,4 +18,17 @@ class Song < ActiveRecord::Base
       :commentable => track['commentable']
     )               
   end
+
+  def pair!(other_song)
+    pairing = Pairing.new
+    pairing.from_song = other_song
+    pairing.to_song = self
+    other_song.eligible = false
+    self.eligible = false
+    pairing.save!
+    other_song.save!
+    if other_song.user.email
+      UserMailer.pairing_ready_email(other_song.user, pairing).deliver
+    end
+  end
 end

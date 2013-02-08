@@ -39,4 +39,18 @@ class User < ActiveRecord::Base
       # end
     end
   end
+
+  def seen_song_ids
+    all_song_pairings = self.songs.collect {|s| s.to_pairings + s.from_pairings }.flatten.compact
+    all_song_pairings.collect {|p| [p.to_song_id, p.from_song_id] }.flatten.uniq
+  end
+
+  def find_eligible_song(my_song)
+    potential = Song.where('user_id != ? AND eligible = 1 AND id NOT IN (?)', self.id, self.seen_song_ids.join(',')).order('updated_at')
+    return potential.first if my_song.new_record? 
+    potential.each do |s|
+      return s unless s.user.seen_song_ids.include?(my_song.id)
+    end
+    return nil
+  end
 end

@@ -23,21 +23,10 @@ class SongsController < ApplicationController
         num_repeat += 1
       end
 
-      other_song = Song.where('user_id != ? AND eligible = 1', current_user.id).limit(1)[0]
-      if other_song
-        pairing = Pairing.new
-        pairing.from_song = other_song
-        pairing.to_song = song
-        other_song.eligible = false
-        song.eligible = false
-        pairing.save!
-        other_song.save!
-        if other_song.user.email
-          UserMailer.pairing_ready_email(other_song.user, pairing).deliver
-        end
-      else
-        song.eligible = true
-      end
+      song.eligible = true
+
+      other_song = current_user.find_eligible_song(song)
+      song.pair!(other_song) if other_song
 
       song.save!
     end

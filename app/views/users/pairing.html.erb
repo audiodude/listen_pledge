@@ -10,7 +10,8 @@
       <% if @eligible_songs.empty? %>
         You don't have an active pairing at the moment. Go to the <%= link_to 'import songs page', import_songs_path %> and import a song so we can pair it up.
       <% else %>
-        <p>Your song hasn't been paired with anyone else&apos;s yet. This is likely to happen to every other person, if you think about it.</p>
+        <p>Your song hasn't been paired with anyone else&apos;s yet. This is likely to happen to every other person, if you think about it.
+	  <br/>Additionally, we never pair someone with a song they have already commented on.</p>
 	<% if current_user.email.blank? %>
 	  <div id="enter_email">
 	    <p>Enter your email and we'll send you a message when your song gets paired.</p>
